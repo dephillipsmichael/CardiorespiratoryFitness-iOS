@@ -1,0 +1,322 @@
+{
+  "identifier": "Cardio_12MT",
+  "usesTrackedData": true,
+  "shouldHideActions": [
+    "goBackward",
+    "skip"
+  ],
+  "progressMarkers": [
+    "wearingFitbit",
+    "volumeUp",
+    "goOutside",
+    "heartRate.before",
+    "run",
+    "heartRate.after",
+    "surveyAfter"
+  ],
+  "asyncActions": [
+    {
+      "identifier": "location",
+      "type": "distance",
+      "startStepIdentifier": "heartRate.before",
+      "stopStepIdentifier": "heartRate.after",
+      "requiresBackgroundAudio": true,
+      "motionStepIdentifier": "runDistance"
+    }
+  ],
+  "steps": [
+    {
+      "identifier": "introduction",
+      "type": "overview",
+      "title": "12 Minute Distance Test",
+      "text": "15 minutes",
+      "permissions": [
+        {
+          "permissionType": "camera",
+          "reason": "We use the camera to see your finger as blood goes through it so we can measure your heart beats."
+        }
+      ],
+      "image": {
+        "type": "animated",
+        "imageNames": [
+          "Walking1",
+          "Walking2"
+        ],
+        "placementType": "topBackground",
+        "animationDuration": 1.5,
+        "bundleIdentifier": "org.sagebionetworks.CRFSampleApp"
+      },
+      "icons": [
+        {
+          "icon": "StairsIcon",
+          "title": "Outside Area"
+        }
+      ],
+      "actions": {
+        "goForward": {
+          "type": "default",
+          "buttonTitle": "Measure"
+        },
+        "skip": {
+          "type": "reminder",
+          "reminderIdentifier": "Cardio_12MT"
+        }
+      }
+    },
+    {
+      "identifier": "heartRisk",
+      "type": "instruction",
+      "image": {
+        "type": "fetchable",
+        "imageName": "AlertIcon",
+        "placementType": "iconBefore"
+      },
+      "title": "Potential risks",
+      "text": "Do not attempt to complete this test if you have been told by your doctor that you should not participate in physical activity or exercise. Stop the test and talk to your doctor if any of the following symptoms occur: chest pain, dizziness, blurred vision, disorientation, excessive shortness of breath, severe nausea, severe fatigue, or severe headache.",
+      "actions": {
+        "goForward": {
+          "type": "default",
+          "buttonTitle": "Got it"
+        }
+      }
+    },
+    {
+      "identifier": "wearingFitbit",
+      "type": "instruction",
+      "title": "Wearing your fitbit?",
+      "text": "Before continuing on with the 12 minute test, please make sure you have your fitbit on your wrist.",
+      "image": {
+        "type": "fetchable",
+        "imageName": "RecoveryQuestions",
+        "placementType": "iconBefore"
+      },
+      "actions": {
+        "goForward": {
+          "type": "default",
+          "buttonTitle": "Start"
+        }
+      }
+    },
+    {
+      "identifier": "volumeUp",
+      "type": "instruction",
+      "title": "Volume turned up?",
+      "text": "Bring your phone with you and turn up your phone volume so you can hear the instructions while you are moving.",
+      "image": {
+        "type": "animated",
+        "imageNames": [
+          "VolumeTurnedUp_1",
+          "VolumeTurnedUp_2",
+          "VolumeTurnedUp_3"
+        ],
+        "placementType": "topBackground",
+        "animationDuration": 1.5
+      },
+      "actions": {
+        "goForward": {
+          "type": "default",
+          "buttonTitle": "It’s turned on"
+        }
+      }
+    },
+    {
+      "identifier": "goOutside",
+      "type": "instruction",
+      "title": "Go outside",
+      "text": "Start by going oustide and standing still to measure your resting heart rate before you start moving.",
+      "image": {
+        "type": "animated",
+        "imageNames": [
+          "stairStepSmall1",
+          "stairStepSmall2",
+          "stairStepSmall3",
+          "stairStepSmall4"
+        ],
+        "placementType": "topBackground",
+        "animationDuration": 2.5
+      },
+      "actions": {
+        "goForward": {
+          "type": "default",
+          "buttonTitle": "Start"
+        }
+      }
+    },
+    {
+      "identifier": "countdown.before",
+      "type": "countdown",
+      "text": "Start in",
+      "duration": 10,
+      "commands": [
+        "playSoundOnStart",
+        "transitionAutomatically"
+      ]
+    },
+    {
+      "identifier": "heartRate.before",
+      "type": "heartRate",
+      "duration": 30,
+      "isResting": true
+    },
+    {
+      "identifier": "feedback.before",
+      "type": "completion",
+      "resultTitle": "Your pre run heart rate is",
+      "stepResultIdentifier": "heartRate.before",
+      "resultIdentifier": "resting",
+      "unitText": "BPM",
+      "title": "Now let's get ready for your 12 minutes run5]]",
+      "actions": {
+        "goForward": {
+          "type": "default",
+          "buttonTitle": "Next"
+        },
+        "skip": {
+          "type": "navigation",
+          "skipToIdentifier": "countdown.before",
+          "buttonTitle": "Redo"
+        }
+      }
+    },
+    {
+      "identifier": "bringPhone",
+      "type": "instruction",
+      "image": {
+        "type": "fetchable",
+        "imageName": "AlertIcon",
+        "placementType": "iconBefore"
+      },
+      "title": "Take your phone with you",
+      "text": "Cover as much distance as you can on a flat course in 12 minutes by running or walking.",
+      "actions": {
+        "goForward": {
+          "type": "default",
+          "buttonTitle": "Got it"
+        }
+      }
+    },
+    {
+      "identifier": "countdown.run",
+      "type": "countdown",
+      "text": "Start in",
+      "duration": 10,
+      "commands": [
+        "playSoundOnStart",
+        "transitionAutomatically"
+      ]
+    },
+    {
+      "identifier": "runDistance",
+      "type": "active",
+      "duration": 30,
+      "image": {
+        "type": "animated",
+        "imageNames": [
+          "stairStepSmall1",
+          "stairStepSmall2",
+          "stairStepSmall3",
+          "stairStepSmall4"
+        ],
+        "placementType": "topBackground",
+        "animationDuration": 2.5
+      },
+      "commands": [
+        "vibrate",
+        "playSound",
+        "transitionAutomatically",
+        "shouldDisableIdleTimer"
+      ],
+      "spokenInstructions": {
+        "0": "Start running or walking.",
+        "180": "You’re doing well; 9 minutes left.",
+        "360": "Good job, halfway done; 6 minutes left.",
+        "540": "You’re doing well; 3 minutes left.",
+        "660": "Good job; 1 minute left.",
+        "700": "Almost done.",
+        "countdown": "15",
+        "end": "Stop running or walking."
+      },
+      "viewTheme": {
+        "viewIdentifier": "StairStep",
+        "storyboardIdentifier": "ActiveTaskSteps"
+      }
+    },
+    {
+      "identifier": "countdown.after",
+      "type": "countdown",
+      "text": "Start in",
+      "duration": 10,
+      "commands": [
+        "playSoundOnStart",
+        "transitionAutomatically"
+      ]
+    },
+    {
+      "identifier": "heartRate.after",
+      "type": "heartRate",
+      "duration": 30,
+      "isResting": false
+    },
+    {
+      "identifier": "feedback.after",
+      "type": "completion",
+      "resultTitle": "Your heart rate changed to",
+      "stepResultIdentifier": "hr",
+      "resultIdentifier": "heartRate.after",
+      "unitText": "BPM",
+      "title": "Your heart rate changed to",
+      "actions": {
+        "goForward": {
+          "type": "default",
+          "buttonTitle": "Next"
+        },
+        "skip": {
+          "type": "navigation",
+          "skipToIdentifier": "countdown.after",
+          "buttonTitle": "Redo"
+        }
+      }
+    },
+    {
+      "identifier": "surveyAfter",
+      "type": "form",
+      "text": "What, if anything, kept you from going further?",
+      "inputFields": [
+        {
+          "type": "singleChoice.string",
+          "choices": [
+            {
+              "text": "Nothing, was my best effort",
+              "value": "Nothing, was my best effort"
+            },
+            {
+              "text": "Feeling tired",
+              "value": "Feeling tired"
+            },
+            {
+              "text": "Pain or physical discomfort",
+              "value": "Pain or physical discomfort"
+            },
+            {
+              "text": "Interrupted",
+              "value": "Interrupted"
+            }
+          ],
+          
+        }
+      ]
+    },
+    {
+      "identifier": "completion",
+      "type": "instruction",
+      "title": "Congratulations",
+      "text": "The cardio 12 minute run task is complete",
+      "actions": {
+        "goForward": {
+          "type": "default",
+          "buttonTitle": "Done"
+        }
+      }
+    }
+  ]
+}

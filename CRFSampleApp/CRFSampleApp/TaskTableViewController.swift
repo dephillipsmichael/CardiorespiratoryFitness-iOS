@@ -35,15 +35,17 @@ import UIKit
 import Research
 import CardiorespiratoryFitness
 
-class TaskTableViewController: UITableViewController {
+class TaskTableViewController: UITableViewController, RSDTaskViewControllerDelegate {
     
-    public let taskList: [CRFTaskInfo] = CRFTaskIdentifier.allCases.map { CRFTaskInfo($0) }
+    public var taskList: [RSDTaskInfo] = CRFTaskIdentifier.allCases.map { CRFTaskInfo($0) }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Use automatic hieght dimension
         tableView.rowHeight = UITableView.automaticDimension
+        
+        addCustomTask()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -86,26 +88,110 @@ class TaskTableViewController: UITableViewController {
         let taskInfo = taskList[indexPath.row]
         cell.titleLabel?.text = taskInfo.title
         cell.subtitleLabel?.text = taskInfo.subtitle
-        if let imageView = cell.thumbnailView, let icon = taskInfo.icon {
-            imageView.image = icon.embeddedImage()
+        
+        guard let imageView = cell.thumbnailView else {
+            return cell
         }
+        
+        if let crfTaskInfo = taskInfo as? CRFTaskInfo,
+           let icon = crfTaskInfo.icon {
+            imageView.image = icon.embeddedImage()
+        } else {
+            taskInfo.imageVendor?.fetchImage(for: CGSize(width: 100, height: 100), callback: { (id, image) in
+                imageView.image = image
+            })
+        }
+    
         return cell
     }
  
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         guard let cell = sender as? UITableViewCell,
             let indexPath = self.tableView.indexPath(for: cell),
-            let vc = segue.destination as? TaskPresentationViewController
+            let vc = segue.destination as? TaskPresentationViewController,
+            let taskInfo = taskList[indexPath.row] as? CRFTaskInfo
             else {
                 return
         }
-        let taskInfo = taskList[indexPath.row]
         vc.taskInfo = taskInfo
         vc.title = taskInfo.title ?? taskInfo.identifier
         vc.navigationItem.title = vc.title
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        guard let cell = sender as? UITableViewCell,
+            let indexPath = self.tableView.indexPath(for: cell)
+            else {
+                return false
+        }
+        let taskInfo = taskList[indexPath.row]
+        if (taskInfo is CRFTaskInfo) {
+            return true
+        }
+        runCustomTask(taskInfo: taskInfo)
+        return false
+    }
+    
+    func addCustomTask() {
+        var cardio12MTTaskInfo = RSDTaskInfoObject(with: "Cardio_12MT")
+        cardio12MTTaskInfo.title = "Cardio 12 Minutes"
+        cardio12MTTaskInfo.subtitle = "Take your heart rate, run for 12 minutes, then take your heart rate again to measure V02 Max."
+        let crfBundle = Bundle(for: CRFTaskObject.self)
+        do {
+            cardio12MTTaskInfo.icon = try RSDImageWrapper(imageName: "heartRateIcon", bundle: crfBundle)
+        } catch {
+            debugPrint("Invalid image heartRateIcon in \(String(describing: crfBundle.bundleIdentifier))")
+        }
+        taskList.append(cardio12MTTaskInfo)
+    }
+    
+    func runCustomTask(taskInfo: RSDTaskInfo) {
+        self.showJsonTaskViewControler(jsonName: taskInfo.identifier)
+    }
+    
+    func showJsonTaskViewControler(jsonName: String) {
+        do {
+            let resourceTransformer = RSDResourceTransformerObject(resourceName: jsonName)
+            let factory = CustomCrfFactory()
+            let task = try factory.decodeTask(with: resourceTransformer)
+            let taskViewModel = RSDTaskViewModel(task: task)
+            let vc = RSDTaskViewController(taskViewModel: taskViewModel)
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+        } catch let err {
+            fatalError("Failed to decode the task. \(err)")
+        }
+    }
+    
+    func taskController(_ taskController: RSDTaskController, didFinishWith reason: RSDTaskFinishReason, error: Error?) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func taskController(_ taskController: RSDTaskController, readyToSave taskViewModel: RSDTaskViewModel) {
+        // Here is where you will save the results to MyStudies
+        print("\(taskViewModel.taskResult.identifier) recorded with \(taskViewModel.taskResult.stepHistory.count) simple results and \(String(describing: taskViewModel.taskResult.asyncResults?.count)) JSON results")
+    }
+}
+
+open class CustomCrfFactory: CRFFactory {
+    override open func decodeTask(with resourceTransformer: RSDResourceTransformer, taskIdentifier: String? = nil, schemaInfo: RSDSchemaInfo? = nil) throws -> RSDTask {
+        let crfBundle = Bundle(for: CRFTaskObject.self)
+        let (data, type) = try resourceTransformer.resourceData()
+        return try decodeTask(with: data,
+                              resourceType: type,
+                              typeName: resourceTransformer.classType,
+                              taskIdentifier: taskIdentifier,
+                              schemaInfo: schemaInfo,
+                              bundle: crfBundle)
+    }
+    
+    
+    override open func decodeStep(from decoder: Decoder, with type: RSDStepType) throws -> RSDStep? {
+        
+        // Add custom step here, your conclusion step
+        return try super.decodeStep(from: decoder, with: type)
     }
 }
 
