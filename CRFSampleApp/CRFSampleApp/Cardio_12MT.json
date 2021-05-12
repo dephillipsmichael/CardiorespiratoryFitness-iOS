@@ -165,7 +165,7 @@
       "stepResultIdentifier": "heartRate.before",
       "resultIdentifier": "resting",
       "unitText": "BPM",
-      "title": "Now let's get ready for your 12 minutes run5]]",
+      "title": "Now let's get ready for your 12 minute run",
       "actions": {
         "goForward": {
           "type": "default",
@@ -255,14 +255,14 @@
       "identifier": "heartRate.after",
       "type": "heartRate",
       "duration": 30,
-      "isResting": false
+      "isResting": true
     },
     {
       "identifier": "feedback.after",
       "type": "completion",
       "resultTitle": "Your heart rate changed to",
-      "stepResultIdentifier": "hr",
-      "resultIdentifier": "heartRate.after",
+      "stepResultIdentifier": "heartRate.after",
+      "resultIdentifier": "resting",
       "unitText": "BPM",
       "title": "Your heart rate changed to",
       "actions": {
@@ -308,9 +308,10 @@
     },
     {
       "identifier": "completion",
-      "type": "instruction",
+      "type": "customCompletion",
       "title": "Congratulations",
       "text": "The cardio 12 minute run task is complete",
+      "customJsonField": "Hello world",
       "actions": {
         "goForward": {
           "type": "default",

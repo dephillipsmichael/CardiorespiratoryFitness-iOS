@@ -176,9 +176,12 @@ class TaskTableViewController: UITableViewController, RSDTaskViewControllerDeleg
 }
 
 open class CustomCrfFactory: CRFFactory {
+    
     override open func decodeTask(with resourceTransformer: RSDResourceTransformer, taskIdentifier: String? = nil, schemaInfo: RSDSchemaInfo? = nil) throws -> RSDTask {
+        
         let crfBundle = Bundle(for: CRFTaskObject.self)
         let (data, type) = try resourceTransformer.resourceData()
+        
         return try decodeTask(with: data,
                               resourceType: type,
                               typeName: resourceTransformer.classType,
@@ -191,6 +194,10 @@ open class CustomCrfFactory: CRFFactory {
     override open func decodeStep(from decoder: Decoder, with type: RSDStepType) throws -> RSDStep? {
         
         // Add custom step here, your conclusion step
+        if (type == "customCompletion") {
+            return try CustomCompletionStepObject(from: decoder)
+        }
+                
         return try super.decodeStep(from: decoder, with: type)
     }
 }

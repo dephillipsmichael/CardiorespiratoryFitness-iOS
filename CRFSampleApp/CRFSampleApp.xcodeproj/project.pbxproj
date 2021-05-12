@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CB060350264B312C00E59A33 /* Cardio_12MT.json in Resources */ = {isa = PBXBuildFile; fileRef = CB06034F264B312C00E59A33 /* Cardio_12MT.json */; };
+		CB9DD139264C202A002BDCFB /* CustomCompletionStepViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB9DD137264C202A002BDCFB /* CustomCompletionStepViewController.xib */; };
+		CB9DD13A264C202A002BDCFB /* CustomCompletionStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DD138264C202A002BDCFB /* CustomCompletionStepViewController.swift */; };
 		F844E462227AADAF00DC82B5 /* CRFSampleAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F844E461227AADAF00DC82B5 /* CRFSampleAppTests.swift */; };
 		F850B553226E590F0046C905 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F850B552226E590F0046C905 /* AppDelegate.swift */; };
 		F850B558226E590F0046C905 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F850B556226E590F0046C905 /* Main.storyboard */; };
@@ -56,6 +58,8 @@
 
 /* Begin PBXFileReference section */
 		CB06034F264B312C00E59A33 /* Cardio_12MT.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Cardio_12MT.json; path = CRFSampleApp/Cardio_12MT.json; sourceTree = SOURCE_ROOT; };
+		CB9DD137264C202A002BDCFB /* CustomCompletionStepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCompletionStepViewController.xib; sourceTree = "<group>"; };
+		CB9DD138264C202A002BDCFB /* CustomCompletionStepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCompletionStepViewController.swift; sourceTree = "<group>"; };
 		F844E460227AADAE00DC82B5 /* CRFSampleAppTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CRFSampleAppTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		F844E461227AADAF00DC82B5 /* CRFSampleAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRFSampleAppTests.swift; sourceTree = "<group>"; };
 		F850B54F226E590F0046C905 /* CRFSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CRFSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,11 +118,19 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		CB9DD136264C2018002BDCFB /* Custom Steps */ = {
+			isa = PBXGroup;
+			children = (
+				CB9DD138264C202A002BDCFB /* CustomCompletionStepViewController.swift */,
+				CB9DD137264C202A002BDCFB /* CustomCompletionStepViewController.xib */,
+			);
+			path = "Custom Steps";
+			sourceTree = "<group>";
+		};
 		F850B546226E590F0046C905 = {
 			isa = PBXGroup;
 			children = (
 				F850B551226E590F0046C905 /* CRFSampleApp */,
-				CB06034D264B309F00E59A33 /* Resources */,
 				F850B566226E59110046C905 /* CRFSampleAppTests */,
 				F8C0582F2277926E00FA59E6 /* Frameworks */,
 				F850B550226E590F0046C905 /* Products */,
@@ -146,6 +158,8 @@
 				F850B559226E59110046C905 /* Assets.xcassets */,
 				F850B55B226E59110046C905 /* LaunchScreen.storyboard */,
 				F850B55E226E59110046C905 /* Info.plist */,
+				CB9DD136264C2018002BDCFB /* Custom Steps */,
+				CB06034D264B309F00E59A33 /* Resources */,
 			);
 			path = CRFSampleApp;
 			sourceTree = "<group>";
@@ -254,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB9DD139264C202A002BDCFB /* CustomCompletionStepViewController.xib in Resources */,
 				F850B55D226E59110046C905 /* LaunchScreen.storyboard in Resources */,
 				CB060350264B312C00E59A33 /* Cardio_12MT.json in Resources */,
 				F850B55A226E59110046C905 /* Assets.xcassets in Resources */,
@@ -278,6 +293,7 @@
 				F850B585226E5CD80046C905 /* TaskPresentationViewController.swift in Sources */,
 				F850B587226E5CE20046C905 /* TaskTableViewController.swift in Sources */,
 				F850B553226E590F0046C905 /* AppDelegate.swift in Sources */,
+				CB9DD13A264C202A002BDCFB /* CustomCompletionStepViewController.swift in Sources */,
 				F850B581226E5CBD0046C905 /* ResultTableViewController.swift in Sources */,
 				F850B57D226E5CAB0046C905 /* FileResultViewController.swift in Sources */,
 			);
