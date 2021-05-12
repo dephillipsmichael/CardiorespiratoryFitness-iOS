@@ -10,7 +10,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomCompletionStepViewController" customModule="CRFSampleApp" customModuleProvider="target">
             <connections>
-                <outlet property="jointImageView" destination="qi0-an-zlg" id="Go4-Np-h7V"/>
                 <outlet property="navigationFooter" destination="Ncg-SY-6dE" id="SLP-DO-Xlo"/>
                 <outlet property="navigationHeader" destination="kjp-vl-acf" id="7ON-iy-iGV"/>
                 <outlet property="view" destination="Be1-UX-e65" id="BEo-OJ-8Gt"/>
