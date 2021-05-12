@@ -10,8 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomCompletionStepViewController" customModule="CRFSampleApp" customModuleProvider="target">
             <connections>
-                <outlet property="navigationFooter" destination="Ncg-SY-6dE" id="SLP-DO-Xlo"/>
-                <outlet property="navigationHeader" destination="kjp-vl-acf" id="7ON-iy-iGV"/>
+                <outlet property="navigationFooter" destination="Ncg-SY-6dE" id="UgX-JS-ENt"/>
+                <outlet property="navigationHeader" destination="kjp-vl-acf" id="ufH-Vf-7tb"/>
                 <outlet property="view" destination="Be1-UX-e65" id="BEo-OJ-8Gt"/>
             </connections>
         </placeholder>
@@ -26,13 +26,9 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kjp-vl-acf" userLabel="Header" customClass="RSDNavigationHeaderView" customModule="ResearchUI">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qi0-an-zlg" customClass="JointPainImageView" customModule="CRFSampleApp" customModuleProvider="target">
-                                    <rect key="frame" x="24" y="64" width="327" height="212"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="image" value="JointCompleteHeader"/>
-                                    </userDefinedRuntimeAttributes>
-                                </view>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gJy-0c-Xje">
+                                    <rect key="frame" x="24" y="48" width="327" height="204"/>
+                                </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYt-76-z57" userLabel="Cancel Button">
                                     <rect key="frame" x="8" y="24" width="50" height="50"/>
                                     <constraints>
@@ -45,19 +41,20 @@
                             </subviews>
                             <color key="backgroundColor" red="0.46905957510000001" green="0.85504668949999996" blue="0.47276955840000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
+                                <constraint firstItem="gJy-0c-Xje" firstAttribute="leading" secondItem="kjp-vl-acf" secondAttribute="leading" constant="24" id="8T1-tr-dIK"/>
                                 <constraint firstItem="gYt-76-z57" firstAttribute="top" secondItem="kjp-vl-acf" secondAttribute="top" constant="24" id="8YB-N8-KmZ"/>
                                 <constraint firstItem="gYt-76-z57" firstAttribute="leading" secondItem="kjp-vl-acf" secondAttribute="leading" constant="8" id="9q4-Ke-8ah"/>
-                                <constraint firstItem="qi0-an-zlg" firstAttribute="top" secondItem="kjp-vl-acf" secondAttribute="top" constant="64" id="PQx-up-x1A"/>
+                                <constraint firstItem="gJy-0c-Xje" firstAttribute="top" secondItem="kjp-vl-acf" secondAttribute="top" constant="48" id="BRr-gr-MVN"/>
+                                <constraint firstAttribute="trailing" secondItem="gJy-0c-Xje" secondAttribute="trailing" constant="24" id="Uwi-62-XHJ"/>
                                 <constraint firstAttribute="width" secondItem="kjp-vl-acf" secondAttribute="height" multiplier="375:300" id="Wwe-9q-qaJ"/>
-                                <constraint firstAttribute="bottom" secondItem="qi0-an-zlg" secondAttribute="bottom" constant="24" id="h9d-2t-a2O"/>
-                                <constraint firstItem="qi0-an-zlg" firstAttribute="leading" secondItem="kjp-vl-acf" secondAttribute="leading" constant="24" id="lee-PG-XCQ"/>
-                                <constraint firstAttribute="trailing" secondItem="qi0-an-zlg" secondAttribute="trailing" constant="24" id="uvA-4A-7Dt"/>
+                                <constraint firstAttribute="bottom" secondItem="gJy-0c-Xje" secondAttribute="bottom" constant="48" id="vs7-ok-Bd7"/>
                             </constraints>
                             <connections>
                                 <outlet property="cancelButton" destination="gYt-76-z57" id="ErZ-Hc-PSH"/>
-                                <outlet property="detailLabel" destination="mct-jM-Lzp" id="iXe-0H-urN"/>
+                                <outlet property="detailLabel" destination="mct-jM-Lzp" id="HqE-vT-dEN"/>
+                                <outlet property="imageView" destination="gJy-0c-Xje" id="W2f-gK-V6q"/>
                                 <outlet property="textLabel" destination="lPO-0H-hWO" id="tGX-Va-wu5"/>
-                                <outlet property="titleLabel" destination="eMZ-8x-koe" id="oVn-Ub-ERi"/>
+                                <outlet property="titleLabel" destination="eMZ-8x-koe" id="aSd-8L-kn1"/>
                             </connections>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity complete" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="eMZ-8x-koe" userLabel="Title Label">
@@ -79,8 +76,8 @@
                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ncg-SY-6dE" userLabel="Footer" customClass="RSDGenericNavigationFooterView" customModule="ResearchUI">
-                            <rect key="frame" x="0.0" y="565" width="375" height="135"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ncg-SY-6dE" userLabel="Footer" customClass="RSDGenericNavigationFooterView" customModule="ResearchUI">
+                            <rect key="frame" x="0.0" y="599" width="375" height="101"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                     </subviews>
@@ -118,7 +115,6 @@
         </view>
     </objects>
     <resources>
-        <image name="JointCompleteHeader" width="121" height="231"/>
         <image name="closeActivity" width="50" height="50"/>
     </resources>
 </document>
