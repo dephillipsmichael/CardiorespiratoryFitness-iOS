@@ -22,6 +22,14 @@
       "stopStepIdentifier": "heartRate.after",
       "requiresBackgroundAudio": true,
       "motionStepIdentifier": "runDistance"
+    },
+    {
+        "identifier":"motion",
+        "type":"motion",
+        "startStepIdentifier": "heartRate.before",
+        "stopStepIdentifier": "heartRate.after",
+        "requiresBackgroundAudio":true,
+        "recorderTypes":["accelerometer"]
     }
   ],
   "steps": [
@@ -60,6 +68,23 @@
         "skip": {
           "type": "reminder",
           "reminderIdentifier": "Cardio_12MT"
+        }
+      }
+    },
+    {
+      "identifier": "introductionMotion",
+      "type": "overview",
+      "text": "Accept motion permission so we can determine the quality of your run.",
+      "permissions": [
+        {
+            "permissionType": "motion",
+            "reason": "We use motion to determine the quality of your run."
+        }
+      ],
+      "actions": {
+        "goForward": {
+          "type": "default",
+          "buttonTitle": "Next"
         }
       }
     },
@@ -199,7 +224,7 @@
       "identifier": "countdown.run",
       "type": "countdown",
       "text": "Start in",
-      "duration": 10,
+      "duration": 5,
       "commands": [
         "playSoundOnStart",
         "transitionAutomatically"

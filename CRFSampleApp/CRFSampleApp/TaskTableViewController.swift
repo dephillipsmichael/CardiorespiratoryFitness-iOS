@@ -34,10 +34,14 @@
 import UIKit
 import Research
 import CardiorespiratoryFitness
+import ResearchLocation
+import CoreLocation
 
-class TaskTableViewController: UITableViewController, RSDTaskViewControllerDelegate {
+class TaskTableViewController: UITableViewController, RSDTaskViewControllerDelegate, CLLocationManagerDelegate {
     
     public var taskList: [RSDTaskInfo] = CRFTaskIdentifier.allCases.map { CRFTaskInfo($0) }
+    
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +50,11 @@ class TaskTableViewController: UITableViewController, RSDTaskViewControllerDeleg
         tableView.rowHeight = UITableView.automaticDimension
         
         addCustomTask()
+        
+        let delay = DispatchTime.now() + .milliseconds(500)
+        DispatchQueue.main.asyncAfter(deadline: delay) { [weak self] in
+            self?.requestLocationPermission()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -173,9 +182,43 @@ class TaskTableViewController: UITableViewController, RSDTaskViewControllerDeleg
         // Here is where you will save the results to MyStudies
         print("\(taskViewModel.taskResult.identifier) recorded with \(taskViewModel.taskResult.stepHistory.count) simple results and \(String(describing: taskViewModel.taskResult.asyncResults?.count)) JSON results")
     }
+    
+    func requestLocationPermission() {
+        locationManager.delegate = self
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.requestAlwaysAuthorization()
+    }
+    
+    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        DispatchQueue.main.async {
+            self.newLocationAuthStatus(authStatus: status)
+        }
+    }
+
+    @available(iOS 14.0, *)  // iOS 14's version of function directly above
+    public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        DispatchQueue.main.async {
+            self.newLocationAuthStatus(authStatus: manager.authorizationStatus)
+        }
+    }
+    
+    private func newLocationAuthStatus(authStatus: CLAuthorizationStatus) {
+        if (authStatus == .authorizedAlways) {
+            debugPrint("User accepted location permission")
+        } else {
+            debugPrint("User did not accept location permission")
+        }
+    }
 }
 
 open class CustomCrfFactory: CRFFactory {
+    
+    /// Override initialization to add the strings file to the localization bundles.
+    public override init() {
+        super.init()
+        
+        RSDAuthorizationHandler.registerAdaptorIfNeeded(RSDLocationAuthorization.shared)
+    }
     
     override open func decodeTask(with resourceTransformer: RSDResourceTransformer, taskIdentifier: String? = nil, schemaInfo: RSDSchemaInfo? = nil) throws -> RSDTask {
         
